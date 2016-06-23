@@ -23,17 +23,19 @@ def pikore_tag_scraper(tag, num_scrolls):
 
     for item in items:
         try:
-            username = item.find(class_='username').text.strip()
-            likes = item.find(class_='item-meta').find(class_='likes-number').text.strip()
-            comments = item.find(class_='item-meta').find(class_='comments-number').text.strip()
             description = item.find(class_='desc').text.strip()
+            if tag in description:
+                username = item.find(class_='username').text.strip()
+                likes = item.find(class_='item-meta').find(class_='likes-number').text.strip()
+                comments = item.find(class_='item-meta').find(class_='comments-number').text.strip()
 
-            item_data = {'username'    : username,
-                         'likes'       : likes,
-                         'comments'    : comments,
-                         'description' : description}
+                item_data = {'username'    : username,
+                             'likes'       : likes,
+                             'comments'    : comments,
+                             'description' : description,
+                             'search_tag'  : tag}
 
-            page_data.append(item_data)
+                page_data.append(item_data)
 
         except AttributeError:
             pass
