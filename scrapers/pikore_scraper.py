@@ -16,4 +16,8 @@ def pikore_tag_scraper(tag, num_scrolls):
 
     html_source = driver.page_source
 
-    return html_source
+    #ADD STUFF
+
+    stuff = html_source
+
+    return stuff
