@@ -8,6 +8,8 @@ class Instagram_Post(Document):
     comments = IntField()
     description = StringField()
     search_tag = StringField()
+    time_posted = StringField()
+
 
     def to_dict(self):
         return {'username'    : self.username,
