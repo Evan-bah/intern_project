@@ -56,13 +56,15 @@ def pikore_tag_scraper(tag, num_scrolls):
                 likes = item.find(class_='item-meta').find(class_='likes-number').text.strip()
                 comments = item.find(class_='item-meta').find(class_='comments-number').text.strip()
                 time_posted = convert_to_timestamp(item.find(class_='posted').text)
+                image_link = item.img['src']
 
                 item_data = {'username'    : username,
                              'likes'       : likes,
                              'comments'    : comments,
                              'description' : description,
                              'search_tag'  : tag,
-                             'time_posted' : time_posted}
+                             'time_posted' : time_posted,
+                             'image_link'  : image_link}
 
                 page_data.append(item_data)
 
