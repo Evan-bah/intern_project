@@ -1,5 +1,6 @@
-import time
+from datetime import timedelta, datetime
 import re
+import time
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -10,7 +11,6 @@ def extract_hash_tags(text):
     return re.findall(r"#(\w+)", text)
 
 def convert_to_timestamp(posted_time):
-    from datetime import timedelta, datetime
 
     posted_time = posted_time.replace('about', '')
     
@@ -73,13 +73,14 @@ def pikore_content_scraper(query, num_scrolls, username=True):
             post_link = item.find(class_='image-wrapper').a['href']
             description = get_post_content(post_link)
 
-            item_data = {'username'    : username,
-                         'likes'       : likes,
-                         'comments'    : comments,
-                         'description' : description,
-                         'hash_tags'   : extract_hash_tags(description),
-                         'time_posted' : time_posted,
-                         'image_link'  : image_link}
+            item_data = {'username'        : username,
+                         'likes'           : likes,
+                         'comments'        : comments,
+                         'description'     : description,
+                         'hash_tags'       : extract_hash_tags(description),
+                         'time_posted'     : time_posted,
+                         'image_link'      : image_link,
+                         'extraction_time' : datetime.now().strftime('%Y/%m/%d %T')}
 
             page_data.append(item_data)
 
