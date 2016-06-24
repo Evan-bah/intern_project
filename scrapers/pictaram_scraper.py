@@ -27,8 +27,6 @@ def first_pictaram_search_result(username):
     soup = BeautifulSoup(html_search_source)
     user_page_url = soup.find(class_='user-name')['href']
 
-    assert user_page_url
-
     return user_page_url
 
 
@@ -61,10 +59,14 @@ def scrape_pictaram_by_username(username, pages=1, print_progress=False):
                 value['comments'] = box.find(class_='comments').text.strip()
                 value['likes'] = box.find(class_='like').text.strip()
                 user_post_data.append(value)
-            except:
+            except TypeError, AttributeError:
                 pass
 
         pages -= 1
-        page_url = soup.find(class_='next-cont').a['href']
-   
+
+        try:
+            page_url = soup.find(class_='next-cont').a['href']
+        except TypeError, AttributeError:
+            return user_post_data
+
     return user_post_data
