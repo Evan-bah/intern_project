@@ -33,7 +33,6 @@ def first_pictaram_search_result(username):
 def scrape_pictaram_by_username(username, pages=1, print_progress=False):
 
 	user_page_url = first_pictaram_search_result(username)
-
     user_post_data = []
 
     while pages > 0:
@@ -52,12 +51,13 @@ def scrape_pictaram_by_username(username, pages=1, print_progress=False):
                 image_link = box.find(class_='content-image image').a['href']
                 if print_progress:
                     print(image_link)
-                value['image-link'] =  image_link
-                value['last_100_likes'] = pictaram_last_100_likes(image_link)
-                value['content-image'] = box.find(class_='content-image image').img['src']
-                value['content'] = box.find(class_='content').text.strip()
-                value['comments'] = box.find(class_='comments').text.strip()
-                value['likes'] = box.find(class_='like').text.strip()
+                value = {'image-link'       : image_link,
+                         'last_100_likes'   : pictaram_last_100_likes(image_link),
+                         'content-image'    : box.find(class_='content-image image').img['src'],
+                         'content'          : box.find(class_='content').text.strip(),
+                         'comments'         : box.find(class_='comments').text.strip(),
+                         'likes'            : box.find(class_='like').text.strip()}}
+
                 user_post_data.append(value)
             except TypeError, AttributeError:
                 pass
