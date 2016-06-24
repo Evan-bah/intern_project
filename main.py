@@ -16,7 +16,7 @@ for username in usernames:
                        likes=result['likes'],
                        comments=result['comments'],
                        description=result['description'],
-                       time_posted=result['search_tag'],
+                       time_posted=result['time_posted'],
                        hash_tags=result['hash_tags'],
                        extraction_time=result['extraction_time']).save()
 
@@ -30,6 +30,6 @@ for tag in tags:
                        likes=result['likes'],
                        comments=result['comments'],
                        description=result['description'],
-                       time_posted=result['search_tag'],
+                       time_posted=result['time_posted'],
                        hash_tags=result['hash_tags'],
                        extraction_time=result['extraction_time']).save()

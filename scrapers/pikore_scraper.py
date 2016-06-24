@@ -4,11 +4,14 @@ import time
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from urllib2 import urlopen
+from urllib2 import urlopen, HTTPError
 
 
 def extract_hash_tags(text):
-    return re.findall(r"#(\w+)", text)
+    try:
+        return re.findall(r"#(\w+)", text)
+    except TypeError:
+        return ''
 
 def convert_to_timestamp(posted_time):
 
@@ -43,10 +46,13 @@ def pikore_content_scraper(query, num_scrolls, username=True):
         return 'http://www.pikore.com/tag/' + query
 
     def get_post_content(post_link):
-        full_link = 'http://www.pikore.com' + post_link
-        html_source = urlopen(full_link).read()
-        soup = BeautifulSoup(html_source, 'html.parser')
-        return soup.find(class_='desc').text
+        try:
+            full_link = 'http://www.pikore.com' + post_link
+            html_source = urlopen(full_link).read()
+            soup = BeautifulSoup(html_source, 'html.parser')
+            return soup.find(class_='desc').text
+        except (HTTPError, AttributeError, TypeError):
+            return
 
     base_url = pikore_url_generator(query, username)
     driver = webdriver.Chrome()  # Optional argument, if not specified will search path.
@@ -71,6 +77,7 @@ def pikore_content_scraper(query, num_scrolls, username=True):
             time_posted = convert_to_timestamp(item.find(class_='posted').text)
             image_link = item.img['src']
             post_link = item.find(class_='image-wrapper').a['href']
+            print(post_link)
             description = get_post_content(post_link)
 
             item_data = {'username'        : username,

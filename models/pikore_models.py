@@ -8,7 +8,7 @@ class Instagram_Post(Document):
     comments = IntField()
     description = StringField()
     time_posted = StringField()
-    hash_tags = ListField(StringField)
+    hash_tags = ListField(StringField())
     extraction_time = StringField()
 
 
