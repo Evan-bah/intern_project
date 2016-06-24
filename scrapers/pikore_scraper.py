@@ -8,10 +8,9 @@ from urllib2 import urlopen, HTTPError
 
 
 def extract_hash_tags(text):
-    try:
+    if text:
         return re.findall(r"#(\w+)", text)
-    except TypeError:
-        return ''
+    return ['']
 
 def convert_to_timestamp(posted_time):
 
