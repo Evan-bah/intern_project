@@ -31,8 +31,12 @@ def convert_to_timestamp(posted_time):
         return (datetime.now() - timedelta(days=days_ago)).strftime('%Y/%m/%d %T')
 
 
+def pikore_content_scraper(query, num_scrolls, username=True):
 
-def pikore_tag_scraper(tag, num_scrolls):
+    def pikore_url_generator(query, username=True):
+        if username:
+            return 'http://www.pikore.com/' + query
+        return 'http://www.pikore.com/tag/' + query
 
     def get_post_content(post_link):
         full_link = 'http://www.pikore.com' + post_link
@@ -40,10 +44,9 @@ def pikore_tag_scraper(tag, num_scrolls):
         soup = BeautifulSoup(html_source, 'html.parser')
         return soup.find(class_='desc').text
 
-
-    BASE_URL = "http://www.pikore.com/tag/" + tag
+    base_url = pikore_url_generator(query, username)
     driver = webdriver.Chrome()  # Optional argument, if not specified will search path.
-    driver.get(BASE_URL);
+    driver.get(base_url);
     time.sleep(1) # Let the user actually see something!
 
     for i in range(1, num_scrolls):
