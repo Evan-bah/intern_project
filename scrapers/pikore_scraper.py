@@ -70,5 +70,3 @@ def pikore_tag_scraper(tag, num_scrolls):
             pass
 
     return page_data
-
-print pikore_tag_scraper('test', 1)
