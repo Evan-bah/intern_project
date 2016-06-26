@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import time
 
 
-def scrape_profile(username, num_scrolls):
+def scrape_profile(username, num_scrolls, print_status=True):
     driver = webdriver.Chrome()
     driver.get('http://www.instagram.com')
     html_source = driver.page_source
@@ -38,6 +38,8 @@ def scrape_profile(username, num_scrolls):
 
     height = 4000
     for _ in range(num_scrolls):
+        if num_scrolls % 200 == 0 & print_status:
+            print(num_scrolls)
         query = 'jQuery("div").filter((i, div) => jQuery(div).css("overflow-y") == "scroll")[0].scrollTop = %s' %height
         driver.execute_script(query)
         time.sleep(.5)
