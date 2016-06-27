@@ -25,7 +25,7 @@ def scrape_profile(username, num_scrolls, print_status=True):
     driver.find_element_by_css_selector('.' + '.'.join(follow)).click()
     time.sleep(1)
 
-    login = BeautifulSoup(driver.page_source).find('button')
+    login = BeautifulSoup(driver.page_source, 'html.parser').find('button')
     button = '.' + '.'.join(login['class'])
     driver.find_element_by_css_selector(button).click()
 
@@ -55,3 +55,6 @@ def scrape_profile(username, num_scrolls, print_status=True):
         follower_list.append(follower.a['href'][1:-1])
 
     return follower_list
+
+
+scrape_profile('newbalance', 100)
