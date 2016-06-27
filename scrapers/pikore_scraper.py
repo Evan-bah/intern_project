@@ -55,7 +55,7 @@ def pikore_content_scraper(query, num_scrolls, username=True):
 
     base_url = pikore_url_generator(query, username)
     driver = webdriver.Chrome()  # Optional argument, if not specified will search path.
-    driver.get(base_url);
+    driver.get(base_url)
     time.sleep(1) # Let the user actually see something!
 
     for i in range(1, num_scrolls):
